@@ -5,32 +5,34 @@
       <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
       <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
     </linearGradient>
-    <linearGradient id="globe-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" style="stop-color:#34d399;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+    <linearGradient id="plane-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#f0f9ff;stop-opacity:1" />
     </linearGradient>
   </defs>
   
   <!-- Background -->
   <circle cx="16" cy="16" r="16" fill="url(#bg-gradient)"/>
   
-  <!-- Globe -->
-  <circle cx="16" cy="17" r="9" fill="url(#globe-gradient)" stroke="#ffffff" stroke-width="1"/>
-  
-  <!-- Globe lines (continents) -->
-  <path d="M8 17 C12 14, 20 14, 24 17" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.8"/>
-  <path d="M8 20 C12 18, 20 18, 24 20" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.8"/>
-  <path d="M16 8 L16 26" stroke="#ffffff" stroke-width="1.5" opacity="0.6"/>
-  <path d="M7 17 L25 17" stroke="#ffffff" stroke-width="1.5" opacity="0.6"/>
-  
-  <!-- Airplane -->
-  <g transform="translate(20, 6) rotate(45)">
-    <path d="M0 0 L4 1 L2 3 L1 2 Z" fill="#ffffff"/>
-    <path d="M1 1 L3 1" stroke="#ffffff" stroke-width="0.5"/>
+  <!-- Main airplane -->
+  <g transform="translate(16, 16)">
+    <!-- Airplane body -->
+    <path d="M-6 0 L8 0 L6 -2 L8 -2 L10 0 L8 2 L6 2 Z" fill="url(#plane-gradient)" stroke="#059669" stroke-width="0.5"/>
+    <!-- Wings -->
+    <path d="M-2 0 L2 -6 L4 -6 L0 0 L4 6 L2 6 Z" fill="url(#plane-gradient)"/>
+    <!-- Tail -->
+    <path d="M-6 0 L-8 -3 L-6 -3 L-6 0 L-6 3 L-8 3 Z" fill="url(#plane-gradient)"/>
+    <!-- Window -->
+    <circle cx="2" cy="0" r="1.5" fill="#10b981" opacity="0.8"/>
   </g>
   
-  <!-- Small stars/sparkles for travel magic -->
-  <circle cx="26" cy="10" r="1" fill="#ffffff" opacity="0.8"/>
-  <circle cx="6" cy="8" r="0.8" fill="#ffffff" opacity="0.6"/>
-  <circle cx="28" cy="24" r="0.8" fill="#ffffff" opacity="0.7"/>
+  <!-- Travel path/route -->
+  <path d="M4 12 Q16 4, 28 12" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="2,2"/>
+  <path d="M4 20 Q16 28, 28 20" stroke="#ffffff" stroke-width="1.5" fill="none" opacity="0.6" stroke-dasharray="2,2"/>
+  
+  <!-- Small destination dots -->
+  <circle cx="4" cy="12" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="28" cy="12" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="4" cy="20" r="1.5" fill="#ffffff" opacity="0.9"/>
+  <circle cx="28" cy="20" r="1.5" fill="#ffffff" opacity="0.9"/>
 </svg>
