@@ -1,0 +1,10 @@
+<!-- This is a placeholder for favicon.ico -->
+<!-- Modern browsers will use the SVG favicon.svg instead -->
+<!-- To create favicon.ico, you can:
+1. Use an online converter like https://realfavicongenerator.net/
+2. Upload the favicon.svg file
+3. Download the generated favicon.ico
+4. Replace this file with the downloaded favicon.ico
+
+For now, browsers will use the SVG version which is better quality anyway!
+-->

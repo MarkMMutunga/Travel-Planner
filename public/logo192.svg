@@ -1,0 +1,44 @@
+<svg width="192" height="192" viewBox="0 0 192 192" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle with gradient -->
+  <defs>
+    <linearGradient id="bg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#10b981;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#059669;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="globe-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#34d399;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#10b981;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background with rounded corners for iOS -->
+  <rect x="0" y="0" width="192" height="192" rx="40" ry="40" fill="url(#bg-gradient)"/>
+  
+  <!-- Globe -->
+  <circle cx="96" cy="106" r="54" fill="url(#globe-gradient)" stroke="#ffffff" stroke-width="6"/>
+  
+  <!-- Globe lines (continents) -->
+  <path d="M48 106 C72 88, 120 88, 144 106" stroke="#ffffff" stroke-width="8" fill="none" opacity="0.8"/>
+  <path d="M48 124 C72 112, 120 112, 144 124" stroke="#ffffff" stroke-width="8" fill="none" opacity="0.8"/>
+  <path d="M96 52 L96 160" stroke="#ffffff" stroke-width="8" opacity="0.6"/>
+  <path d="M42 106 L150 106" stroke="#ffffff" stroke-width="8" opacity="0.6"/>
+  
+  <!-- Airplane -->
+  <g transform="translate(130, 45) rotate(45) scale(2)">
+    <path d="M0 0 L12 3 L6 9 L3 6 Z" fill="#ffffff"/>
+    <path d="M3 3 L9 3" stroke="#ffffff" stroke-width="2"/>
+    <circle cx="6" cy="6" r="1" fill="#10b981"/>
+  </g>
+  
+  <!-- Travel elements -->
+  <circle cx="156" cy="60" r="6" fill="#ffffff" opacity="0.8"/>
+  <circle cx="36" cy="48" r="4" fill="#ffffff" opacity="0.6"/>
+  <circle cx="168" cy="144" r="5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="24" cy="150" r="3" fill="#ffffff" opacity="0.5"/>
+  
+  <!-- Additional travel icons -->
+  <g transform="translate(40, 30)" opacity="0.7">
+    <path d="M0 8 L8 0 L16 8 L8 16 Z" fill="none" stroke="#ffffff" stroke-width="3"/>
+    <circle cx="8" cy="8" r="2" fill="#ffffff"/>
+  </g>
+</svg>
