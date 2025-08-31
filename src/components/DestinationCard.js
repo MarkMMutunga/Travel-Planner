@@ -1,3 +1,16 @@
+/**
+ * Travel Planner - Destination Card Component
+ * 
+ * @author Mark Mikile Mutunga
+ * @email markmiki03@gmail.com
+ * @phone +254 707 678 643
+ * @copyright (c) 2025 Mark Mikile Mutunga. All rights reserved.
+ * @license MIT License
+ * 
+ * Description: Interactive destination card with beautiful imagery and hover effects.
+ * Displays destination information with professional UI design.
+ */
+
 const DestinationCard = ({ destination, onClick }) => {
   return (
     <div 

@@ -1,3 +1,16 @@
+/**
+ * Travel Planner - Amadeus API Service
+ * 
+ * @author Mark Mikile Mutunga
+ * @email markmiki03@gmail.com
+ * @phone +254 707 678 643
+ * @copyright (c) 2025 Mark Mikile Mutunga. All rights reserved.
+ * @license MIT License
+ * 
+ * Description: API service for integrating with Amadeus Travel API.
+ * Handles authentication, destination search, flight offers, and hotel bookings.
+ */
+
 // Amadeus API Service
 class AmadeusAPI {
   constructor() {

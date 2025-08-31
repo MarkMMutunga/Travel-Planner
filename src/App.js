@@ -1,3 +1,16 @@
+/**
+ * Travel Planner - Main Application Component
+ * 
+ * @author Mark Mikile Mutunga
+ * @email markmiki03@gmail.com
+ * @phone +254 707 678 643
+ * @copyright (c) 2025 Mark Mikile Mutunga. All rights reserved.
+ * @license MIT License
+ * 
+ * Description: Main React component for the Travel Planner application.
+ * Handles destination search, flight booking, and hotel reservations.
+ */
+
 import { useState } from 'react';
 import SearchBar from './components/SearchBar';
 import DestinationList from './components/DestinationList';

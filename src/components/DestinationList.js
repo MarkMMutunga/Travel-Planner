@@ -1,3 +1,16 @@
+/**
+ * Travel Planner - Destination List Component
+ * 
+ * @author Mark Mikile Mutunga
+ * @email markmiki03@gmail.com
+ * @phone +254 707 678 643
+ * @copyright (c) 2025 Mark Mikile Mutunga. All rights reserved.
+ * @license MIT License
+ * 
+ * Description: Grid layout component for displaying multiple destination cards
+ * with loading states and responsive design.
+ */
+
 import DestinationCard from './DestinationCard';
 
 const DestinationList = ({ destinations, onDestinationSelect, isLoading }) => {

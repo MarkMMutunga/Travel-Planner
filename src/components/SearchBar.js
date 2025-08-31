@@ -1,3 +1,16 @@
+/**
+ * Travel Planner - Search Bar Component
+ * 
+ * @author Mark Mikile Mutunga
+ * @email markmiki03@gmail.com
+ * @phone +254 707 678 643
+ * @copyright (c) 2025 Mark Mikile Mutunga. All rights reserved.
+ * @license MIT License
+ * 
+ * Description: Search component for finding travel destinations worldwide.
+ * Features beautiful gradient design and responsive user interface.
+ */
+
 import { useState } from 'react';
 
 const SearchBar = ({ onSearch, isSearching }) => {

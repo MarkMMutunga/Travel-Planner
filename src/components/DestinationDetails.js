@@ -1,3 +1,16 @@
+/**
+ * Travel Planner - Destination Details Component
+ * 
+ * @author Mark Mikile Mutunga
+ * @email markmiki03@gmail.com
+ * @phone +254 707 678 643
+ * @copyright (c) 2025 Mark Mikile Mutunga. All rights reserved.
+ * @license MIT License
+ * 
+ * Description: Comprehensive destination view with flight booking, hotel reservations,
+ * and detailed travel information. Features real airline integration and hotel imagery.
+ */
+
 import { useState, useEffect } from 'react';
 import amadeusAPI from '../services/amadeusAPI';
 

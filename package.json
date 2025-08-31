@@ -1,6 +1,13 @@
 {
   "name": "travel-planner",
   "version": "1.0.0",
+  "description": "A comprehensive travel planning and booking web application built with React and Tailwind CSS",
+  "author": {
+    "name": "Mark Mikile Mutunga",
+    "email": "markmiki03@gmail.com",
+    "phone": "+254 707 678 643"
+  },
+  "license": "MIT",
   "private": true,
   "scripts": {
     "start": "react-scripts start",
@@ -12,13 +19,19 @@
     "type": "git",
     "url": "git+https://github.com/MarkMMutunga/Travel-Planner.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "keywords": [
+    "travel",
+    "planner",
+    "booking",
+    "flights",
+    "hotels",
+    "destinations",
+    "react",
+    "tailwind"
+  ],
   "bugs": {
     "url": "https://github.com/MarkMMutunga/Travel-Planner/issues"
   },
-  "description": "A simple travel planning web app built with React and Tailwind CSS",
   "dependencies": {
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
