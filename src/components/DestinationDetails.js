@@ -7,53 +7,137 @@ export default function DestinationDetails({ destination, onBack }) {
   const [isLoadingFlights, setIsLoadingFlights] = useState(false);
   const [isLoadingHotels, setIsLoadingHotels] = useState(false);
   const [activeTab, setActiveTab] = useState('overview');
+  const [showBookingModal, setShowBookingModal] = useState(false);
+  const [bookingType, setBookingType] = useState(''); // 'flight' or 'hotel'
+  const [selectedOffer, setSelectedOffer] = useState(null);
+  const [bookingForm, setBookingForm] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    passengers: 1,
+    checkIn: '',
+    checkOut: '',
+    specialRequests: ''
+  });
 
   useEffect(() => {
     loadFlightOffers();
     loadHotelOffers();
   }, [destination]);
 
+  const getAirlineName = (carrierCode) => {
+    const airlines = {
+      'AA': 'American Airlines',
+      'DL': 'Delta Air Lines',
+      'UA': 'United Airlines',
+      'AF': 'Air France',
+      'LH': 'Lufthansa',
+      'BA': 'British Airways',
+      'EK': 'Emirates',
+      'QR': 'Qatar Airways',
+      'SQ': 'Singapore Airlines',
+      'TK': 'Turkish Airlines',
+      'KL': 'KLM Royal Dutch Airlines',
+      'VS': 'Virgin Atlantic',
+      'AC': 'Air Canada',
+      'NH': 'All Nippon Airways',
+      'JL': 'Japan Airlines'
+    };
+    return airlines[carrierCode] || 'Airline';
+  };
+
+  const getDestinationFlights = (destinationName) => {
+    const flightRoutes = {
+      'Paris': [
+        { from: 'JFK', to: 'CDG', carriers: ['AF', 'DL', 'AA'], duration: 'PT7H15M' },
+        { from: 'LAX', to: 'CDG', carriers: ['AF', 'UA', 'VS'], duration: 'PT11H30M' },
+        { from: 'ORD', to: 'CDG', carriers: ['AA', 'UA', 'AF'], duration: 'PT8H45M' }
+      ],
+      'London': [
+        { from: 'JFK', to: 'LHR', carriers: ['BA', 'AA', 'VS'], duration: 'PT6H50M' },
+        { from: 'LAX', to: 'LHR', carriers: ['BA', 'UA', 'VS'], duration: 'PT11H15M' },
+        { from: 'ORD', to: 'LHR', carriers: ['BA', 'AA', 'UA'], duration: 'PT8H20M' }
+      ],
+      'Tokyo': [
+        { from: 'JFK', to: 'NRT', carriers: ['NH', 'JL', 'UA'], duration: 'PT14H30M' },
+        { from: 'LAX', to: 'NRT', carriers: ['NH', 'JL', 'AA'], duration: 'PT11H45M' },
+        { from: 'SFO', to: 'NRT', carriers: ['NH', 'JL', 'UA'], duration: 'PT10H55M' }
+      ],
+      'Dubai': [
+        { from: 'JFK', to: 'DXB', carriers: ['EK', 'QR'], duration: 'PT12H30M' },
+        { from: 'LAX', to: 'DXB', carriers: ['EK', 'QR'], duration: 'PT16H15M' },
+        { from: 'ORD', to: 'DXB', carriers: ['EK', 'QR'], duration: 'PT13H45M' }
+      ],
+      'Singapore': [
+        { from: 'JFK', to: 'SIN', carriers: ['SQ', 'NH'], duration: 'PT18H30M' },
+        { from: 'LAX', to: 'SIN', carriers: ['SQ', 'UA'], duration: 'PT17H15M' },
+        { from: 'SFO', to: 'SIN', carriers: ['SQ', 'UA'], duration: 'PT16H45M' }
+      ]
+    };
+
+    return flightRoutes[destinationName] || [
+      { from: 'JFK', to: 'XXX', carriers: ['AA', 'DL', 'UA'], duration: 'PT8H00M' },
+      { from: 'LAX', to: 'XXX', carriers: ['AA', 'DL', 'UA'], duration: 'PT12H00M' }
+    ];
+  };
+
   const loadFlightOffers = async () => {
     setIsLoadingFlights(true);
     try {
-      // For demo, we'll use mock data since we need origin city
-      const mockFlights = [
-        {
-          id: '1',
-          price: { total: '450.99', currency: 'USD' },
-          itineraries: [
-            {
-              duration: 'PT8H30M',
-              segments: [
-                {
-                  departure: { iataCode: 'NYC', at: '2024-03-15T08:00:00' },
-                  arrival: { iataCode: destination.iataCode || 'PAR', at: '2024-03-15T20:30:00' },
-                  carrierCode: 'AF',
-                  aircraft: { code: '777' }
-                }
-              ]
-            }
-          ]
-        },
-        {
-          id: '2',
-          price: { total: '523.50', currency: 'USD' },
-          itineraries: [
-            {
-              duration: 'PT12H15M',
-              segments: [
-                {
-                  departure: { iataCode: 'NYC', at: '2024-03-15T14:30:00' },
-                  arrival: { iataCode: destination.iataCode || 'PAR', at: '2024-03-16T08:45:00' },
-                  carrierCode: 'LH',
-                  aircraft: { code: 'A350' }
-                }
-              ]
-            }
-          ]
-        }
-      ];
-      setFlightOffers(mockFlights);
+      const routes = getDestinationFlights(destination.name);
+      const mockFlights = [];
+
+      routes.forEach((route, routeIndex) => {
+        route.carriers.forEach((carrier, carrierIndex) => {
+          const basePrice = 350 + (Math.random() * 400);
+          const departureTime = new Date();
+          departureTime.setDate(departureTime.getDate() + 7); // One week from now
+          departureTime.setHours(8 + (carrierIndex * 4), Math.floor(Math.random() * 60));
+
+          const arrivalTime = new Date(departureTime);
+          const durationMatch = route.duration.match(/PT(\d+)H(\d+)M/);
+          if (durationMatch) {
+            arrivalTime.setHours(arrivalTime.getHours() + parseInt(durationMatch[1]));
+            arrivalTime.setMinutes(arrivalTime.getMinutes() + parseInt(durationMatch[2]));
+          }
+
+          mockFlights.push({
+            id: `${routeIndex}-${carrierIndex}`,
+            price: { total: basePrice.toFixed(2), currency: 'USD' },
+            airline: getAirlineName(carrier),
+            carrierCode: carrier,
+            itineraries: [
+              {
+                duration: route.duration,
+                segments: [
+                  {
+                    departure: { 
+                      iataCode: route.from, 
+                      at: departureTime.toISOString(),
+                      cityName: route.from === 'JFK' ? 'New York' : route.from === 'LAX' ? 'Los Angeles' : route.from === 'ORD' ? 'Chicago' : route.from === 'SFO' ? 'San Francisco' : 'Origin'
+                    },
+                    arrival: { 
+                      iataCode: route.to, 
+                      at: arrivalTime.toISOString(),
+                      cityName: destination.name
+                    },
+                    carrierCode: carrier,
+                    aircraft: { 
+                      code: carrier === 'EK' ? 'A380' : carrier === 'BA' ? '787' : carrier === 'AF' ? 'A350' : '777'
+                    },
+                    stops: Math.random() > 0.7 ? 1 : 0
+                  }
+                ]
+              }
+            ]
+          });
+        });
+      });
+
+      // Sort by price
+      mockFlights.sort((a, b) => parseFloat(a.price.total) - parseFloat(b.price.total));
+      setFlightOffers(mockFlights.slice(0, 6)); // Show top 6 flights
     } catch (error) {
       console.error('Error loading flights:', error);
     } finally {
@@ -61,43 +145,94 @@ export default function DestinationDetails({ destination, onBack }) {
     }
   };
 
+  const getDestinationHotels = (destinationName) => {
+    const hotelData = {
+      'Paris': [
+        { name: 'The Ritz Paris', rating: 5, type: 'LUXURY', basePrice: 850, amenities: ['Spa', 'Fine Dining', 'Concierge', 'Fitness Center'] },
+        { name: 'Hotel Plaza Athénée', rating: 5, type: 'LUXURY', basePrice: 780, amenities: ['Spa', 'Michelin Restaurant', 'Shopping Access'] },
+        { name: 'Le Meurice', rating: 5, type: 'LUXURY', basePrice: 720, amenities: ['Palace Service', 'Art Collection', 'Gourmet Restaurant'] },
+        { name: 'Hotel des Grands Boulevards', rating: 4, type: 'BOUTIQUE', basePrice: 320, amenities: ['Rooftop Bar', 'Modern Design', 'Central Location'] },
+        { name: 'Hotel Malte Opera', rating: 4, type: 'BUSINESS', basePrice: 220, amenities: ['Business Center', 'WiFi', 'Near Metro'] },
+        { name: 'Hotel Jeanne d\'Arc', rating: 3, type: 'BUDGET', basePrice: 150, amenities: ['Historic Building', 'WiFi', 'Continental Breakfast'] }
+      ],
+      'London': [
+        { name: 'The Savoy', rating: 5, type: 'LUXURY', basePrice: 650, amenities: ['Thames Views', 'Afternoon Tea', 'Butler Service'] },
+        { name: 'Claridge\'s', rating: 5, type: 'LUXURY', basePrice: 600, amenities: ['Art Deco Design', 'Michelin Dining', 'Spa'] },
+        { name: 'The Langham', rating: 5, type: 'LUXURY', basePrice: 550, amenities: ['Historic Luxury', 'Chuan Spa', 'Artesian Bar'] },
+        { name: 'Hotel 41', rating: 4, type: 'BOUTIQUE', basePrice: 380, amenities: ['Buckingham Palace Views', 'Personal Service', 'Executive Lounge'] },
+        { name: 'Premier Inn London', rating: 3, type: 'BUSINESS', basePrice: 180, amenities: ['Comfortable Beds', 'Family Friendly', 'Good Value'] },
+        { name: 'YHA London Central', rating: 2, type: 'BUDGET', basePrice: 85, amenities: ['Shared Facilities', 'Social Areas', 'Budget Friendly'] }
+      ],
+      'Tokyo': [
+        { name: 'The Peninsula Tokyo', rating: 5, type: 'LUXURY', basePrice: 750, amenities: ['Imperial Palace Views', 'Spa', 'Michelin Dining'] },
+        { name: 'Aman Tokyo', rating: 5, type: 'LUXURY', basePrice: 800, amenities: ['Minimalist Design', 'Aman Spa', 'Garden Views'] },
+        { name: 'Park Hyatt Tokyo', rating: 5, type: 'LUXURY', basePrice: 650, amenities: ['City Views', 'New York Grill', 'Lost in Translation Fame'] },
+        { name: 'Hotel Gracery Shinjuku', rating: 4, type: 'BUSINESS', basePrice: 280, amenities: ['Godzilla Head', 'Central Shinjuku', 'Modern Comfort'] },
+        { name: 'Capsule Inn Akihabara', rating: 3, type: 'BUDGET', basePrice: 45, amenities: ['Capsule Experience', 'Tech District', 'Compact Comfort'] },
+        { name: 'Hostel Bed Tokyo', rating: 2, type: 'BUDGET', basePrice: 35, amenities: ['Backpacker Friendly', 'Shared Kitchen', 'Social Atmosphere'] }
+      ],
+      'Dubai': [
+        { name: 'Burj Al Arab Jumeirah', rating: 5, type: 'LUXURY', basePrice: 1200, amenities: ['Iconic Sail Design', 'Butler Service', 'Helicopter Transfers'] },
+        { name: 'Atlantis The Palm', rating: 5, type: 'LUXURY', basePrice: 450, amenities: ['Waterpark Access', 'Aquarium', 'Beach Resort'] },
+        { name: 'Armani Hotel Dubai', rating: 5, type: 'LUXURY', basePrice: 380, amenities: ['Burj Khalifa Location', 'Designer Interiors', 'World\'s Tallest Building'] },
+        { name: 'Jumeirah Beach Hotel', rating: 4, type: 'RESORT', basePrice: 320, amenities: ['Private Beach', 'Water Sports', 'Family Friendly'] },
+        { name: 'Citymax Hotels', rating: 3, type: 'BUSINESS', basePrice: 120, amenities: ['Business Travelers', 'Multiple Locations', 'Modern Amenities'] },
+        { name: 'Al Seef Heritage Hotel', rating: 3, type: 'BUDGET', basePrice: 85, amenities: ['Traditional Design', 'Historic District', 'Cultural Experience'] }
+      ],
+      'Singapore': [
+        { name: 'Marina Bay Sands', rating: 5, type: 'LUXURY', basePrice: 550, amenities: ['Infinity Pool', 'Casino', 'Shopping Mall', 'SkyPark'] },
+        { name: 'The Fullerton Hotel', rating: 5, type: 'LUXURY', basePrice: 480, amenities: ['Historic Building', 'Marina Views', 'Heritage Luxury'] },
+        { name: 'Raffles Singapore', rating: 5, type: 'LUXURY', basePrice: 650, amenities: ['Colonial Heritage', 'Singapore Sling', 'Legendary Service'] },
+        { name: 'Park Royal on Pickering', rating: 4, type: 'BOUTIQUE', basePrice: 280, amenities: ['Sky Gardens', 'Eco-Friendly', 'Unique Architecture'] },
+        { name: 'Hotel Boss', rating: 3, type: 'BUSINESS', basePrice: 150, amenities: ['Lavender District', 'Good Value', 'MRT Access'] },
+        { name: 'Beary Best Hostel', rating: 2, type: 'BUDGET', basePrice: 25, amenities: ['Chinatown Location', 'Shared Facilities', 'Budget Travel'] }
+      ]
+    };
+
+    return hotelData[destinationName] || [
+      { name: `Grand Hotel ${destinationName}`, rating: 5, type: 'LUXURY', basePrice: 400, amenities: ['Luxury Service', 'Fine Dining', 'Spa'] },
+      { name: `City Inn ${destinationName}`, rating: 4, type: 'BUSINESS', basePrice: 180, amenities: ['Business Center', 'WiFi', 'Central Location'] },
+      { name: `Budget Stay ${destinationName}`, rating: 3, type: 'BUDGET', basePrice: 80, amenities: ['Clean Rooms', 'WiFi', 'Good Value'] }
+    ];
+  };
+
   const loadHotelOffers = async () => {
     setIsLoadingHotels(true);
     try {
-      const mockHotels = [
-        {
+      const hotels = getDestinationHotels(destination.name);
+      const mockHotels = hotels.map((hotel, index) => {
+        const priceVariation = 0.8 + (Math.random() * 0.4); // ±20% price variation
+        const finalPrice = (hotel.basePrice * priceVariation).toFixed(2);
+        
+        return {
           hotel: {
-            hotelId: '1',
-            name: `Grand Hotel ${destination.name}`,
-            rating: 5,
-            contact: { phone: '+1-234-567-8900' }
+            hotelId: `hotel-${index}`,
+            name: hotel.name,
+            rating: hotel.rating,
+            type: hotel.type,
+            amenities: hotel.amenities,
+            contact: { phone: `+${Math.floor(Math.random() * 90 + 10)}-${Math.floor(Math.random() * 900 + 100)}-${Math.floor(Math.random() * 9000 + 1000)}` },
+            image: `https://images.unsplash.com/photo-${1500000000000 + index}?w=400&h=300&fit=crop`
           },
           offers: [
             {
-              id: 'offer1',
-              price: { total: '120.00', currency: 'USD' },
-              room: { type: 'DELUXE', typeEstimated: { category: 'DELUXE_ROOM' } },
-              rateFamilyEstimated: { code: 'SRS', type: 'P' }
+              id: `offer-${index}`,
+              price: { total: finalPrice, currency: 'USD' },
+              room: { 
+                type: hotel.type === 'LUXURY' ? 'SUITE' : hotel.type === 'BUDGET' ? 'STANDARD' : 'DELUXE',
+                typeEstimated: { 
+                  category: hotel.type === 'LUXURY' ? 'LUXURY_SUITE' : hotel.type === 'BUDGET' ? 'STANDARD_ROOM' : 'DELUXE_ROOM'
+                }
+              },
+              rateFamilyEstimated: { code: 'SRS', type: 'P' },
+              policies: {
+                cancellation: hotel.type === 'BUDGET' ? 'Non-refundable' : 'Free cancellation until 24h before check-in'
+              }
             }
           ]
-        },
-        {
-          hotel: {
-            hotelId: '2',
-            name: `Boutique Inn ${destination.name}`,
-            rating: 4,
-            contact: { phone: '+1-234-567-8901' }
-          },
-          offers: [
-            {
-              id: 'offer2',
-              price: { total: '85.00', currency: 'USD' },
-              room: { type: 'STANDARD', typeEstimated: { category: 'STANDARD_ROOM' } },
-              rateFamilyEstimated: { code: 'SRS', type: 'P' }
-            }
-          ]
-        }
-      ];
+        };
+      });
+      
       setHotelOffers(mockHotels);
     } catch (error) {
       console.error('Error loading hotels:', error);
@@ -119,6 +254,47 @@ export default function DestinationDetails({ destination, onBack }) {
       hour: '2-digit',
       minute: '2-digit'
     });
+  };
+
+  const formatDate = (dateString) => {
+    return new Date(dateString).toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      year: 'numeric'
+    });
+  };
+
+  const handleBookFlight = (offer) => {
+    setSelectedOffer(offer);
+    setBookingType('flight');
+    setShowBookingModal(true);
+  };
+
+  const handleBookHotel = (offer) => {
+    setSelectedOffer(offer);
+    setBookingType('hotel');
+    setShowBookingModal(true);
+  };
+
+  const handleBookingSubmit = (e) => {
+    e.preventDefault();
+    // Simulate booking process
+    alert(`Booking confirmed! You will receive a confirmation email at ${bookingForm.email}`);
+    setShowBookingModal(false);
+    setBookingForm({
+      firstName: '',
+      lastName: '',
+      email: '',
+      phone: '',
+      passengers: 1,
+      checkIn: '',
+      checkOut: '',
+      specialRequests: ''
+    });
+  };
+
+  const updateBookingForm = (field, value) => {
+    setBookingForm(prev => ({ ...prev, [field]: value }));
   };
 
   return (
@@ -276,36 +452,68 @@ export default function DestinationDetails({ destination, onBack }) {
                           ${offer.price.total}
                         </div>
                         <div className="text-gray-500">{offer.price.currency}</div>
+                        <div className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm font-medium">
+                          {offer.airline}
+                        </div>
                       </div>
-                      <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200">
-                        Select Flight
+                      <button 
+                        onClick={() => handleBookFlight(offer)}
+                        className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 font-medium"
+                      >
+                        Book Flight
                       </button>
                     </div>
                     
                     {offer.itineraries[0] && (
-                      <div className="flex items-center justify-between text-sm text-gray-600">
-                        <div className="flex items-center space-x-2">
-                          <span className="font-medium">
-                            {offer.itineraries[0].segments[0].departure.iataCode}
-                          </span>
-                          <span>
-                            {formatTime(offer.itineraries[0].segments[0].departure.at)}
-                          </span>
+                      <div>
+                        <div className="flex items-center justify-between text-sm text-gray-600 mb-2">
+                          <div className="flex items-center space-x-2">
+                            <span className="font-medium text-lg">
+                              {offer.itineraries[0].segments[0].departure.iataCode}
+                            </span>
+                            <div className="text-xs">
+                              <div>{offer.itineraries[0].segments[0].departure.cityName}</div>
+                              <div className="font-medium">
+                                {formatTime(offer.itineraries[0].segments[0].departure.at)}
+                              </div>
+                              <div className="text-gray-400">
+                                {formatDate(offer.itineraries[0].segments[0].departure.at)}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="flex flex-col items-center space-y-1">
+                            <div className="flex items-center space-x-2">
+                              <div className="border-t border-gray-300 w-16"></div>
+                              <div className="text-gray-400">✈️</div>
+                              <div className="border-t border-gray-300 w-16"></div>
+                            </div>
+                            <span className="text-xs bg-gray-100 px-2 py-1 rounded">
+                              {formatDuration(offer.itineraries[0].duration)}
+                            </span>
+                            {offer.itineraries[0].segments[0].stops > 0 && (
+                              <span className="text-xs text-orange-600">
+                                {offer.itineraries[0].segments[0].stops} stop(s)
+                              </span>
+                            )}
+                          </div>
+                          <div className="flex items-center space-x-2">
+                            <div className="text-xs text-right">
+                              <div>{offer.itineraries[0].segments[0].arrival.cityName}</div>
+                              <div className="font-medium">
+                                {formatTime(offer.itineraries[0].segments[0].arrival.at)}
+                              </div>
+                              <div className="text-gray-400">
+                                {formatDate(offer.itineraries[0].segments[0].arrival.at)}
+                              </div>
+                            </div>
+                            <span className="font-medium text-lg">
+                              {offer.itineraries[0].segments[0].arrival.iataCode}
+                            </span>
+                          </div>
                         </div>
-                        <div className="flex items-center space-x-2">
-                          <div className="border-t border-gray-300 flex-1 mx-4"></div>
-                          <span className="text-xs bg-gray-100 px-2 py-1 rounded">
-                            {formatDuration(offer.itineraries[0].duration)}
-                          </span>
-                          <div className="border-t border-gray-300 flex-1 mx-4"></div>
-                        </div>
-                        <div className="flex items-center space-x-2">
-                          <span className="font-medium">
-                            {offer.itineraries[0].segments[0].arrival.iataCode}
-                          </span>
-                          <span>
-                            {formatTime(offer.itineraries[0].segments[0].arrival.at)}
-                          </span>
+                        <div className="text-xs text-gray-500 flex items-center justify-between mt-2">
+                          <span>Aircraft: {offer.itineraries[0].segments[0].aircraft.code}</span>
+                          <span>Flight operated by {offer.airline} ({offer.carrierCode})</span>
                         </div>
                       </div>
                     )}
@@ -336,6 +544,17 @@ export default function DestinationDetails({ destination, onBack }) {
                       <div className="absolute inset-0 flex items-center justify-center">
                         <div className="text-white text-6xl">🏨</div>
                       </div>
+                      <div className="absolute top-4 right-4">
+                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                          hotelOffer.hotel.type === 'LUXURY' ? 'bg-purple-600 text-white' :
+                          hotelOffer.hotel.type === 'BOUTIQUE' ? 'bg-blue-600 text-white' :
+                          hotelOffer.hotel.type === 'BUSINESS' ? 'bg-gray-600 text-white' :
+                          hotelOffer.hotel.type === 'RESORT' ? 'bg-orange-600 text-white' :
+                          'bg-green-600 text-white'
+                        }`}>
+                          {hotelOffer.hotel.type}
+                        </span>
+                      </div>
                     </div>
                     <div className="p-6">
                       <div className="flex items-center justify-between mb-2">
@@ -347,18 +566,41 @@ export default function DestinationDetails({ destination, onBack }) {
                         </div>
                       </div>
                       
+                      {/* Amenities */}
+                      <div className="mb-4">
+                        <div className="flex flex-wrap gap-1 mb-2">
+                          {hotelOffer.hotel.amenities?.slice(0, 3).map((amenity, index) => (
+                            <span key={index} className="text-xs bg-gray-100 text-gray-600 px-2 py-1 rounded">
+                              {amenity}
+                            </span>
+                          ))}
+                          {hotelOffer.hotel.amenities?.length > 3 && (
+                            <span className="text-xs text-gray-500">
+                              +{hotelOffer.hotel.amenities.length - 3} more
+                            </span>
+                          )}
+                        </div>
+                      </div>
+                      
                       {hotelOffer.offers[0] && (
                         <div className="mt-4">
                           <div className="flex items-center justify-between mb-4">
                             <div>
-                              <p className="text-sm text-gray-600">
-                                {hotelOffer.offers[0].room.typeEstimated?.category || 'Room'}
+                              <p className="text-sm text-gray-600 mb-1">
+                                {hotelOffer.offers[0].room.typeEstimated?.category?.replace(/_/g, ' ') || 'Room'}
                               </p>
                               <p className="text-2xl font-bold text-green-600">
-                                ${hotelOffer.offers[0].price.total}/night
+                                ${hotelOffer.offers[0].price.total}
+                                <span className="text-sm text-gray-500 font-normal">/night</span>
+                              </p>
+                              <p className="text-xs text-gray-500 mt-1">
+                                {hotelOffer.offers[0].policies?.cancellation || 'Check cancellation policy'}
                               </p>
                             </div>
-                            <button className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200">
+                            <button 
+                              onClick={() => handleBookHotel(hotelOffer)}
+                              className="px-6 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 font-medium"
+                            >
                               Book Now
                             </button>
                           </div>
@@ -372,6 +614,183 @@ export default function DestinationDetails({ destination, onBack }) {
           </div>
         )}
       </div>
+
+      {/* Booking Modal */}
+      {showBookingModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-xl max-w-md w-full max-h-screen overflow-y-auto">
+            <div className="p-6">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-bold text-gray-900">
+                  Book {bookingType === 'flight' ? 'Flight' : 'Hotel'}
+                </h3>
+                <button
+                  onClick={() => setShowBookingModal(false)}
+                  className="text-gray-400 hover:text-gray-600"
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+
+              {/* Booking Summary */}
+              <div className="bg-gray-50 rounded-lg p-4 mb-6">
+                {bookingType === 'flight' && selectedOffer && (
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-2">Flight Details</h4>
+                    <p className="text-sm text-gray-600">{selectedOffer.airline}</p>
+                    <p className="text-sm text-gray-600">
+                      {selectedOffer.itineraries[0].segments[0].departure.iataCode} → {selectedOffer.itineraries[0].segments[0].arrival.iataCode}
+                    </p>
+                    <p className="text-lg font-bold text-green-600">${selectedOffer.price.total}</p>
+                  </div>
+                )}
+                {bookingType === 'hotel' && selectedOffer && (
+                  <div>
+                    <h4 className="font-medium text-gray-900 mb-2">Hotel Details</h4>
+                    <p className="text-sm text-gray-600">{selectedOffer.hotel.name}</p>
+                    <p className="text-sm text-gray-600">
+                      {selectedOffer.offers[0].room.typeEstimated?.category?.replace(/_/g, ' ')}
+                    </p>
+                    <p className="text-lg font-bold text-green-600">${selectedOffer.offers[0].price.total}/night</p>
+                  </div>
+                )}
+              </div>
+
+              {/* Booking Form */}
+              <form onSubmit={handleBookingSubmit} className="space-y-4">
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      First Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={bookingForm.firstName}
+                      onChange={(e) => updateBookingForm('firstName', e.target.value)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Last Name *
+                    </label>
+                    <input
+                      type="text"
+                      required
+                      value={bookingForm.lastName}
+                      onChange={(e) => updateBookingForm('lastName', e.target.value)}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Email Address *
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    value={bookingForm.email}
+                    onChange={(e) => updateBookingForm('email', e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Phone Number
+                  </label>
+                  <input
+                    type="tel"
+                    value={bookingForm.phone}
+                    onChange={(e) => updateBookingForm('phone', e.target.value)}
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                  />
+                </div>
+
+                {bookingType === 'flight' && (
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Number of Passengers
+                    </label>
+                    <select
+                      value={bookingForm.passengers}
+                      onChange={(e) => updateBookingForm('passengers', parseInt(e.target.value))}
+                      className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    >
+                      {[1, 2, 3, 4, 5, 6].map(num => (
+                        <option key={num} value={num}>{num} passenger{num > 1 ? 's' : ''}</option>
+                      ))}
+                    </select>
+                  </div>
+                )}
+
+                {bookingType === 'hotel' && (
+                  <div className="grid grid-cols-2 gap-4">
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Check-in Date *
+                      </label>
+                      <input
+                        type="date"
+                        required
+                        value={bookingForm.checkIn}
+                        onChange={(e) => updateBookingForm('checkIn', e.target.value)}
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      />
+                    </div>
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-1">
+                        Check-out Date *
+                      </label>
+                      <input
+                        type="date"
+                        required
+                        value={bookingForm.checkOut}
+                        onChange={(e) => updateBookingForm('checkOut', e.target.value)}
+                        className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                      />
+                    </div>
+                  </div>
+                )}
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Special Requests
+                  </label>
+                  <textarea
+                    value={bookingForm.specialRequests}
+                    onChange={(e) => updateBookingForm('specialRequests', e.target.value)}
+                    rows={3}
+                    className="w-full border border-gray-300 rounded-lg px-3 py-2 focus:ring-2 focus:ring-green-500 focus:border-transparent"
+                    placeholder="Any special requests or requirements..."
+                  />
+                </div>
+
+                <div className="flex space-x-3 pt-4">
+                  <button
+                    type="button"
+                    onClick={() => setShowBookingModal(false)}
+                    className="flex-1 px-4 py-2 text-gray-700 border border-gray-300 rounded-lg hover:bg-gray-50 transition duration-200"
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="flex-1 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-200 font-medium"
+                  >
+                    Confirm Booking
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
