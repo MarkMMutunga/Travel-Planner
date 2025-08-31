@@ -196,6 +196,46 @@ export default function DestinationDetails({ destination, onBack }) {
     ];
   };
 
+  const getHotelImage = (hotelName, type, destinationName) => {
+    // Hotel image mapping based on type and destination
+    const hotelImages = {
+      'LUXURY': [
+        'https://images.unsplash.com/photo-1564501049412-61c2a3083791?w=400&h=300&fit=crop', // Luxury hotel lobby
+        'https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=400&h=300&fit=crop', // Luxury hotel exterior
+        'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&h=300&fit=crop', // Luxury resort
+        'https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&h=300&fit=crop', // Luxury hotel room
+      ],
+      'BOUTIQUE': [
+        'https://images.unsplash.com/photo-1611892440504-42a792e24d32?w=400&h=300&fit=crop', // Boutique hotel
+        'https://images.unsplash.com/photo-1596394516093-501ba68a0ba6?w=400&h=300&fit=crop', // Boutique design
+        'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?w=400&h=300&fit=crop', // Modern boutique
+        'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop', // Cozy boutique
+      ],
+      'BUSINESS': [
+        'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&h=300&fit=crop', // Business hotel
+        'https://images.unsplash.com/photo-1551632811-561732d1e306?w=400&h=300&fit=crop', // Modern business
+        'https://images.unsplash.com/photo-1559508551-44bff1de756b?w=400&h=300&fit=crop', // City business hotel
+        'https://images.unsplash.com/photo-1584132967334-10e028bd69f7?w=400&h=300&fit=crop', // Corporate hotel
+      ],
+      'RESORT': [
+        'https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=400&h=300&fit=crop', // Beach resort
+        'https://images.unsplash.com/photo-1584132915807-fd1f5fbc078f?w=400&h=300&fit=crop', // Tropical resort
+        'https://images.unsplash.com/photo-1568084680786-a84f91d1153c?w=400&h=300&fit=crop', // Resort pool
+        'https://images.unsplash.com/photo-1540541338287-41700207dee6?w=400&h=300&fit=crop', // Mountain resort
+      ],
+      'BUDGET': [
+        'https://images.unsplash.com/photo-1522798514-97ceb8c4ea1d?w=400&h=300&fit=crop', // Clean budget hotel
+        'https://images.unsplash.com/photo-1586611292717-f828b167408c?w=400&h=300&fit=crop', // Budget accommodation
+        'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&h=300&fit=crop', // Simple hotel room
+        'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=300&fit=crop', // Budget inn
+      ]
+    };
+
+    const typeImages = hotelImages[type] || hotelImages['BUSINESS'];
+    const hash = hotelName.split('').reduce((a, b) => a + b.charCodeAt(0), 0);
+    return typeImages[hash % typeImages.length];
+  };
+
   const loadHotelOffers = async () => {
     setIsLoadingHotels(true);
     try {
@@ -212,7 +252,7 @@ export default function DestinationDetails({ destination, onBack }) {
             type: hotel.type,
             amenities: hotel.amenities,
             contact: { phone: `+${Math.floor(Math.random() * 90 + 10)}-${Math.floor(Math.random() * 900 + 100)}-${Math.floor(Math.random() * 9000 + 1000)}` },
-            image: `https://images.unsplash.com/photo-${1500000000000 + index}?w=400&h=300&fit=crop`
+            image: getHotelImage(hotel.name, hotel.type, destination.name)
           },
           offers: [
             {
@@ -540,29 +580,59 @@ export default function DestinationDetails({ destination, onBack }) {
               <div className="grid md:grid-cols-2 gap-6">
                 {hotelOffers.map((hotelOffer) => (
                   <div key={hotelOffer.hotel.hotelId} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition duration-300">
-                    <div className="h-48 bg-gradient-to-r from-green-400 to-emerald-500 relative overflow-hidden">
-                      <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="h-48 relative overflow-hidden">
+                      {hotelOffer.hotel.image ? (
+                        <img
+                          src={hotelOffer.hotel.image}
+                          alt={hotelOffer.hotel.name}
+                          className="w-full h-full object-cover group-hover:scale-110 transition duration-500"
+                          onError={(e) => {
+                            // Fallback to gradient background if image fails
+                            e.target.style.display = 'none';
+                            e.target.nextSibling.style.display = 'flex';
+                          }}
+                        />
+                      ) : null}
+                      <div className="h-full bg-gradient-to-r from-green-400 to-emerald-500 absolute inset-0 flex items-center justify-center" 
+                           style={{ display: hotelOffer.hotel.image ? 'none' : 'flex' }}>
                         <div className="text-white text-6xl">🏨</div>
                       </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
                       <div className="absolute top-4 right-4">
-                        <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                          hotelOffer.hotel.type === 'LUXURY' ? 'bg-purple-600 text-white' :
-                          hotelOffer.hotel.type === 'BOUTIQUE' ? 'bg-blue-600 text-white' :
-                          hotelOffer.hotel.type === 'BUSINESS' ? 'bg-gray-600 text-white' :
-                          hotelOffer.hotel.type === 'RESORT' ? 'bg-orange-600 text-white' :
-                          'bg-green-600 text-white'
+                        <span className={`px-3 py-1 rounded-full text-sm font-medium backdrop-blur-sm ${
+                          hotelOffer.hotel.type === 'LUXURY' ? 'bg-purple-600/90 text-white' :
+                          hotelOffer.hotel.type === 'BOUTIQUE' ? 'bg-blue-600/90 text-white' :
+                          hotelOffer.hotel.type === 'BUSINESS' ? 'bg-gray-600/90 text-white' :
+                          hotelOffer.hotel.type === 'RESORT' ? 'bg-orange-600/90 text-white' :
+                          'bg-green-600/90 text-white'
                         }`}>
                           {hotelOffer.hotel.type}
                         </span>
                       </div>
+                      <div className="absolute bottom-4 left-4">
+                        <div className="flex items-center text-yellow-400">
+                          {[...Array(hotelOffer.hotel.rating)].map((_, i) => (
+                            <span key={i} className="text-sm">⭐</span>
+                          ))}
+                        </div>
+                      </div>
                     </div>
                     <div className="p-6">
-                      <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-xl font-bold text-gray-900">{hotelOffer.hotel.name}</h3>
-                        <div className="flex items-center">
-                          {[...Array(hotelOffer.hotel.rating)].map((_, i) => (
-                            <span key={i} className="text-yellow-400">⭐</span>
-                          ))}
+                      <div className="flex items-start justify-between mb-3">
+                        <div>
+                          <h3 className="text-xl font-bold text-gray-900 mb-1">{hotelOffer.hotel.name}</h3>
+                          <div className="flex items-center space-x-2">
+                            <div className="flex items-center">
+                              {[...Array(hotelOffer.hotel.rating)].map((_, i) => (
+                                <span key={i} className="text-yellow-400 text-sm">⭐</span>
+                              ))}
+                            </div>
+                            <span className="text-sm text-gray-500">
+                              {hotelOffer.hotel.rating === 5 ? 'Luxury' : 
+                               hotelOffer.hotel.rating === 4 ? 'Premium' : 
+                               hotelOffer.hotel.rating === 3 ? 'Standard' : 'Basic'}
+                            </span>
+                          </div>
                         </div>
                       </div>
                       
