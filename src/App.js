@@ -44,7 +44,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'NBO',
           address: { countryName: 'Kenya', stateCode: 'NAI' },
-          image: 'https://images.unsplash.com/photo-1539650116574-75c0c6d15e9e?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop',
           description: 'The Green City in the Sun, gateway to African safari adventures'
         },
         {
@@ -53,7 +53,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'CDG',
           address: { countryName: 'France', stateCode: 'IDF' },
-          image: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1471622031382-e1460b7af5c1?w=500&h=300&fit=crop',
           description: 'City of Light with iconic landmarks and romantic charm'
         },
         {
@@ -107,7 +107,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'RAK',
           address: { countryName: 'Morocco', stateCode: 'MA' },
-          image: 'https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1489749798305-4fea3ae436d3?w=500&h=300&fit=crop',
           description: 'Red City with vibrant souks and Atlas Mountain views'
         },
         {
@@ -116,7 +116,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'MBA',
           address: { countryName: 'Kenya', stateCode: 'MBA' },
-          image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1586276985212-0bf51a1e1eff?w=500&h=300&fit=crop',
           description: 'Coastal paradise with beautiful beaches and Swahili culture'
         },
         {
@@ -134,7 +134,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'CMN',
           address: { countryName: 'Morocco', stateCode: 'CA' },
-          image: 'https://images.unsplash.com/photo-1539650116574-75c0c6d15e9e?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=500&h=300&fit=crop',
           description: 'Economic capital with stunning Hassan II Mosque'
         },
         {
