@@ -160,6 +160,54 @@ export default function DestinationDetails({ destination, onBack }) {
 
   const getDestinationHotels = (destinationName) => {
     const hotelData = {
+      'Nairobi': [
+        { name: 'Villa Rosa Kempinski', rating: 5, type: 'LUXURY', basePrice: 350, amenities: ['Spa', 'Fine Dining', 'City Views', 'Business Center'] },
+        { name: 'The Sarova Stanley', rating: 5, type: 'LUXURY', basePrice: 320, amenities: ['Historic Hotel', 'Thorn Tree Café', 'Central Location'] },
+        { name: 'Fairmont The Norfolk Hotel', rating: 5, type: 'LUXURY', basePrice: 400, amenities: ['Colonial Heritage', 'Gardens', 'Lord Delamere Terrace'] },
+        { name: 'Hemingways Nairobi', rating: 4, type: 'BOUTIQUE', basePrice: 280, amenities: ['Karen Location', 'Boutique Luxury', 'Elephant Orphanage nearby'] },
+        { name: 'Best Western Plus Meridian Hotel', rating: 4, type: 'BUSINESS', basePrice: 180, amenities: ['Business Center', 'Airport Shuttle', 'Modern Amenities'] },
+        { name: 'Wildebeest Eco Camp', rating: 3, type: 'BUDGET', basePrice: 65, amenities: ['Eco-Friendly', 'Safari Access', 'Cultural Experience'] }
+      ],
+      'Mombasa': [
+        { name: 'Serena Beach Resort & Spa', rating: 5, type: 'RESORT', basePrice: 420, amenities: ['Beach Front', 'Spa', 'Water Sports', 'Coral Reef Access'] },
+        { name: 'Baobab Beach Resort', rating: 5, type: 'RESORT', basePrice: 380, amenities: ['All Inclusive', 'Private Beach', 'Multiple Pools', 'Kids Club'] },
+        { name: 'Voyager Beach Resort', rating: 4, type: 'RESORT', basePrice: 320, amenities: ['Pirate Ship Design', 'Beach Access', 'Family Friendly'] },
+        { name: 'Swahili Beach Resort', rating: 4, type: 'BOUTIQUE', basePrice: 280, amenities: ['Cultural Design', 'Ocean Views', 'Swahili Architecture'] },
+        { name: 'PrideInn Paradise Beach Resort', rating: 4, type: 'BUSINESS', basePrice: 220, amenities: ['Conference Facilities', 'Beach Access', 'Good Value'] },
+        { name: 'Backpackers Castle', rating: 3, type: 'BUDGET', basePrice: 45, amenities: ['Backpacker Friendly', 'Shared Facilities', 'Beach Nearby'] }
+      ],
+      'Cape Town': [
+        { name: 'The Table Bay Hotel', rating: 5, type: 'LUXURY', basePrice: 450, amenities: ['Waterfront Location', 'Table Mountain Views', 'Marina Access'] },
+        { name: 'Mount Nelson Hotel', rating: 5, type: 'LUXURY', basePrice: 520, amenities: ['Pink Palace', 'Historic Gardens', 'Afternoon Tea'] },
+        { name: 'The Silo Hotel', rating: 5, type: 'LUXURY', basePrice: 680, amenities: ['Industrial Chic', 'Art Museum', 'Rooftop Views'] },
+        { name: 'The Taj Cape Town', rating: 5, type: 'LUXURY', basePrice: 380, amenities: ['Historic Building', 'Spa', 'City Center'] },
+        { name: 'Cape Grace Hotel', rating: 4, type: 'BOUTIQUE', basePrice: 320, amenities: ['Marina Views', 'Whisky Library', 'Yacht Access'] },
+        { name: 'Once in Cape Town', rating: 3, type: 'BUDGET', basePrice: 85, amenities: ['Modern Hostel', 'City Bowl', 'Social Areas'] }
+      ],
+      'Johannesburg': [
+        { name: 'Four Seasons Hotel The Westcliff', rating: 5, type: 'LUXURY', basePrice: 420, amenities: ['Clifftop Location', 'Spa', 'City Views', 'Fine Dining'] },
+        { name: 'The Saxon Hotel', rating: 5, type: 'LUXURY', basePrice: 380, amenities: ['Villa Accommodation', 'Award Winning', 'Celebrity Favorite'] },
+        { name: 'InterContinental Johannesburg', rating: 5, type: 'LUXURY', basePrice: 350, amenities: ['O.R. Tambo Location', 'Convention Center', 'Business Focus'] },
+        { name: 'The Peech Hotel', rating: 4, type: 'BOUTIQUE', basePrice: 180, amenities: ['Eco-Friendly', 'Melville Location', 'Art Focus'] },
+        { name: 'City Lodge Sandton', rating: 4, type: 'BUSINESS', basePrice: 120, amenities: ['Business District', 'Conference Facilities', 'Reliable Service'] },
+        { name: 'Curiocity Backpackers', rating: 3, type: 'BUDGET', basePrice: 35, amenities: ['Maboneng Location', 'Arts District', 'Budget Friendly'] }
+      ],
+      'Marrakech': [
+        { name: 'La Mamounia', rating: 5, type: 'LUXURY', basePrice: 680, amenities: ['Palace Hotel', 'Royal Gardens', 'Legendary Luxury', 'Historic Heritage'] },
+        { name: 'Royal Mansour Marrakech', rating: 5, type: 'LUXURY', basePrice: 1200, amenities: ['Royal Palace', 'Private Riads', 'Ultimate Luxury'] },
+        { name: 'Four Seasons Resort Marrakech', rating: 5, type: 'RESORT', basePrice: 520, amenities: ['Resort Setting', 'Spa', 'Atlas Mountain Views'] },
+        { name: 'Riad Kniza', rating: 4, type: 'BOUTIQUE', basePrice: 280, amenities: ['Traditional Riad', 'Medina Location', 'Authentic Experience'] },
+        { name: 'Hotel Almas', rating: 4, type: 'BUSINESS', basePrice: 150, amenities: ['Modern Hotel', 'Gueliz District', 'Business Amenities'] },
+        { name: 'Equity Point Marrakech', rating: 3, type: 'BUDGET', basePrice: 45, amenities: ['Hostel Style', 'Medina Access', 'Social Atmosphere'] }
+      ],
+      'Casablanca': [
+        { name: 'Four Seasons Hotel Casablanca', rating: 5, type: 'LUXURY', basePrice: 380, amenities: ['Ocean Views', 'Business District', 'Modern Luxury'] },
+        { name: 'Hyatt Regency Casablanca', rating: 5, type: 'LUXURY', basePrice: 320, amenities: ['Twin Center Location', 'Spa', 'City Views'] },
+        { name: 'Hotel & Spa Le Doge', rating: 4, type: 'BOUTIQUE', basePrice: 280, amenities: ['Relais & Châteaux', 'Spa Focus', 'Luxury Boutique'] },
+        { name: 'Barceló Anfa Casablanca', rating: 4, type: 'BUSINESS', basePrice: 180, amenities: ['Business Center', 'Modern Design', 'Central Location'] },
+        { name: 'Hotel Central', rating: 3, type: 'BUSINESS', basePrice: 120, amenities: ['Downtown Location', 'Historic Building', 'Good Value'] },
+        { name: 'Youth Hostel Casablanca', rating: 2, type: 'BUDGET', basePrice: 35, amenities: ['Budget Option', 'Shared Facilities', 'City Center'] }
+      ],
       'Paris': [
         { name: 'The Ritz Paris', rating: 5, type: 'LUXURY', basePrice: 850, amenities: ['Spa', 'Fine Dining', 'Concierge', 'Fitness Center'] },
         { name: 'Hotel Plaza Athénée', rating: 5, type: 'LUXURY', basePrice: 780, amenities: ['Spa', 'Michelin Restaurant', 'Shopping Access'] },
@@ -184,21 +232,25 @@ export default function DestinationDetails({ destination, onBack }) {
         { name: 'Capsule Inn Akihabara', rating: 3, type: 'BUDGET', basePrice: 45, amenities: ['Capsule Experience', 'Tech District', 'Compact Comfort'] },
         { name: 'Hostel Bed Tokyo', rating: 2, type: 'BUDGET', basePrice: 35, amenities: ['Backpacker Friendly', 'Shared Kitchen', 'Social Atmosphere'] }
       ],
-      'Dubai': [
-        { name: 'Burj Al Arab Jumeirah', rating: 5, type: 'LUXURY', basePrice: 1200, amenities: ['Iconic Sail Design', 'Butler Service', 'Helicopter Transfers'] },
-        { name: 'Atlantis The Palm', rating: 5, type: 'LUXURY', basePrice: 450, amenities: ['Waterpark Access', 'Aquarium', 'Beach Resort'] },
-        { name: 'Armani Hotel Dubai', rating: 5, type: 'LUXURY', basePrice: 380, amenities: ['Burj Khalifa Location', 'Designer Interiors', 'World\'s Tallest Building'] },
-        { name: 'Jumeirah Beach Hotel', rating: 4, type: 'RESORT', basePrice: 320, amenities: ['Private Beach', 'Water Sports', 'Family Friendly'] },
-        { name: 'Citymax Hotels', rating: 3, type: 'BUSINESS', basePrice: 120, amenities: ['Business Travelers', 'Multiple Locations', 'Modern Amenities'] },
-        { name: 'Al Seef Heritage Hotel', rating: 3, type: 'BUDGET', basePrice: 85, amenities: ['Traditional Design', 'Historic District', 'Cultural Experience'] }
+      'New York': [
+        { name: 'The Plaza', rating: 5, type: 'LUXURY', basePrice: 750, amenities: ['Fifth Avenue', 'Historic Luxury', 'Central Park Views'] },
+        { name: 'The St. Regis New York', rating: 5, type: 'LUXURY', basePrice: 680, amenities: ['Butler Service', 'Midtown Location', 'Legendary Service'] },
+        { name: 'The High Line Hotel', rating: 4, type: 'BOUTIQUE', basePrice: 380, amenities: ['Chelsea Location', 'Historic Building', 'Boutique Charm'] },
+        { name: 'Pod Hotels', rating: 3, type: 'BUSINESS', basePrice: 220, amenities: ['Modern Design', 'Multiple Locations', 'Tech-Savvy'] },
+        { name: 'HI New York City Hostel', rating: 2, type: 'BUDGET', basePrice: 65, amenities: ['Upper West Side', 'Budget Travel', 'Social Areas'] }
       ],
-      'Singapore': [
-        { name: 'Marina Bay Sands', rating: 5, type: 'LUXURY', basePrice: 550, amenities: ['Infinity Pool', 'Casino', 'Shopping Mall', 'SkyPark'] },
-        { name: 'The Fullerton Hotel', rating: 5, type: 'LUXURY', basePrice: 480, amenities: ['Historic Building', 'Marina Views', 'Heritage Luxury'] },
-        { name: 'Raffles Singapore', rating: 5, type: 'LUXURY', basePrice: 650, amenities: ['Colonial Heritage', 'Singapore Sling', 'Legendary Service'] },
-        { name: 'Park Royal on Pickering', rating: 4, type: 'BOUTIQUE', basePrice: 280, amenities: ['Sky Gardens', 'Eco-Friendly', 'Unique Architecture'] },
-        { name: 'Hotel Boss', rating: 3, type: 'BUSINESS', basePrice: 150, amenities: ['Lavender District', 'Good Value', 'MRT Access'] },
-        { name: 'Beary Best Hostel', rating: 2, type: 'BUDGET', basePrice: 25, amenities: ['Chinatown Location', 'Shared Facilities', 'Budget Travel'] }
+      'Sydney': [
+        { name: 'Park Hyatt Sydney', rating: 5, type: 'LUXURY', basePrice: 650, amenities: ['Opera House Views', 'Harbour Location', 'Iconic Views'] },
+        { name: 'The Langham Sydney', rating: 5, type: 'LUXURY', basePrice: 520, amenities: ['The Rocks Location', 'Observatory Hotel', 'Historic Luxury'] },
+        { name: 'QT Sydney', rating: 4, type: 'BOUTIQUE', basePrice: 320, amenities: ['Designer Hotel', 'State Theatre', 'Artistic Design'] },
+        { name: 'Shangri-La Hotel Sydney', rating: 5, type: 'LUXURY', basePrice: 580, amenities: ['Circular Quay', 'Harbour Bridge Views', 'Asian Hospitality'] },
+        { name: 'Wake Up! Sydney Central', rating: 2, type: 'BUDGET', basePrice: 45, amenities: ['Backpacker Central', 'Social Areas', 'Budget Friendly'] }
+      ],
+      'Reykjavik': [
+        { name: 'Hotel Borg', rating: 5, type: 'LUXURY', basePrice: 380, amenities: ['Art Deco Design', 'Downtown Location', 'Historic Luxury'] },
+        { name: 'Canopy by Hilton Reykjavik', rating: 4, type: 'BOUTIQUE', basePrice: 280, amenities: ['Modern Design', 'City Center', 'Local Culture'] },
+        { name: 'Center Hotels Plaza', rating: 4, type: 'BUSINESS', basePrice: 220, amenities: ['Central Location', 'Business Amenities', 'Nordic Design'] },
+        { name: 'KEX Hostel', rating: 3, type: 'BUDGET', basePrice: 85, amenities: ['Hip Hostel', 'Social Scene', 'Local Vibe'] }
       ]
     };
 
