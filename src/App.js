@@ -44,7 +44,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'NBO',
           address: { countryName: 'Kenya', stateCode: 'NAI' },
-          image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1605128928677-7b2f1c4b8c8d?w=800&h=500&fit=crop&q=80',
           description: 'The Green City in the Sun, gateway to African safari adventures'
         },
         {
@@ -53,7 +53,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'CDG',
           address: { countryName: 'France', stateCode: 'IDF' },
-          image: 'https://images.unsplash.com/photo-1471622031382-e1460b7af5c1?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1502602898536-47ad22581b52?w=800&h=500&fit=crop&q=80',
           description: 'City of Light with iconic landmarks and romantic charm'
         },
         {
@@ -62,7 +62,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'NRT',
           address: { countryName: 'Japan', stateCode: 'TK' },
-          image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&h=500&fit=crop&q=80',
           description: 'Modern metropolis blending tradition with cutting-edge technology'
         },
         {
@@ -71,7 +71,7 @@ export default function App() {
           subType: 'CITY', 
           iataCode: 'CPT',
           address: { countryName: 'South Africa', stateCode: 'WC' },
-          image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1580060839134-75a5edca2e99?w=800&h=500&fit=crop&q=80',
           description: 'Mother City with stunning Table Mountain and wine regions'
         },
         {
@@ -80,7 +80,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'JFK', 
           address: { countryName: 'United States', stateCode: 'NY' },
-          image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1496442226666-8d4d0e62e6e9?w=800&h=500&fit=crop&q=80',
           description: 'The Big Apple - vibrant city that never sleeps'
         },
         {
@@ -89,7 +89,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'KEF',
           address: { countryName: 'Iceland', stateCode: 'RE' },
-          image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&h=500&fit=crop&q=80',
           description: 'Northern lights, geysers, and dramatic Nordic beauty'
         },
         {
@@ -98,7 +98,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'SYD',
           address: { countryName: 'Australia', stateCode: 'NSW' },
-          image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=800&h=500&fit=crop&q=80',
           description: 'Harbour city with iconic Opera House and beautiful beaches'
         },
         {
@@ -107,7 +107,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'RAK',
           address: { countryName: 'Morocco', stateCode: 'MA' },
-          image: 'https://images.unsplash.com/photo-1489749798305-4fea3ae436d3?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1539650116574-75c0c6d15e9e?w=800&h=500&fit=crop&q=80',
           description: 'Red City with vibrant souks and Atlas Mountain views'
         },
         {
@@ -116,7 +116,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'MBA',
           address: { countryName: 'Kenya', stateCode: 'MBA' },
-          image: 'https://images.unsplash.com/photo-1586276985212-0bf51a1e1eff?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&h=500&fit=crop&q=80',
           description: 'Coastal paradise with beautiful beaches and Swahili culture'
         },
         {
@@ -125,7 +125,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'JNB',
           address: { countryName: 'South Africa', stateCode: 'GP' },
-          image: 'https://images.unsplash.com/photo-1577948000111-9c970dfe3743?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1577948000111-9c970dfe3743?w=800&h=500&fit=crop&q=80',
           description: 'City of Gold with rich history and vibrant culture'
         },
         {
@@ -134,7 +134,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'CMN',
           address: { countryName: 'Morocco', stateCode: 'CA' },
-          image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1584464491033-06628f3a6b7b?w=800&h=500&fit=crop&q=80',
           description: 'Economic capital with stunning Hassan II Mosque'
         },
         {
@@ -143,7 +143,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'LHR',
           address: { countryName: 'United Kingdom', stateCode: 'ENG' },
-          image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=500&h=300&fit=crop',
+          image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&h=500&fit=crop&q=80',
           description: 'Historic capital with iconic landmarks and royal heritage'
         }
       ];
