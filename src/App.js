@@ -35,8 +35,9 @@ export default function App() {
       setDestinations(results);
     } catch (error) {
       console.error('Search error:', error);
-      // For demo purposes, let's show some amazing global destinations including African gems
-      setDestinations([
+      
+      // Smart fallback: Filter destinations based on the search query
+      const allDestinations = [
         {
           id: '1',
           name: 'Nairobi',
@@ -108,8 +109,58 @@ export default function App() {
           address: { countryName: 'Morocco', stateCode: 'MA' },
           image: 'https://images.unsplash.com/photo-1597212618440-806262de4f6b?w=500&h=300&fit=crop',
           description: 'Red City with vibrant souks and Atlas Mountain views'
+        },
+        {
+          id: '9',
+          name: 'Mombasa',
+          subType: 'CITY',
+          iataCode: 'MBA',
+          address: { countryName: 'Kenya', stateCode: 'MBA' },
+          image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=500&h=300&fit=crop',
+          description: 'Coastal paradise with beautiful beaches and Swahili culture'
+        },
+        {
+          id: '10',
+          name: 'Johannesburg',
+          subType: 'CITY',
+          iataCode: 'JNB',
+          address: { countryName: 'South Africa', stateCode: 'GP' },
+          image: 'https://images.unsplash.com/photo-1577948000111-9c970dfe3743?w=500&h=300&fit=crop',
+          description: 'City of Gold with rich history and vibrant culture'
+        },
+        {
+          id: '11',
+          name: 'Casablanca',
+          subType: 'CITY',
+          iataCode: 'CMN',
+          address: { countryName: 'Morocco', stateCode: 'CA' },
+          image: 'https://images.unsplash.com/photo-1539650116574-75c0c6d15e9e?w=500&h=300&fit=crop',
+          description: 'Economic capital with stunning Hassan II Mosque'
+        },
+        {
+          id: '12',
+          name: 'London',
+          subType: 'CITY',
+          iataCode: 'LHR',
+          address: { countryName: 'United Kingdom', stateCode: 'ENG' },
+          image: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=500&h=300&fit=crop',
+          description: 'Historic capital with iconic landmarks and royal heritage'
         }
-      ]);
+      ];
+
+      // Filter destinations based on search query
+      const searchTerm = query.toLowerCase().trim();
+      const filteredDestinations = allDestinations.filter(destination => {
+        return (
+          destination.name.toLowerCase().includes(searchTerm) ||
+          destination.address.countryName.toLowerCase().includes(searchTerm) ||
+          destination.description.toLowerCase().includes(searchTerm) ||
+          destination.iataCode.toLowerCase().includes(searchTerm)
+        );
+      });
+
+      // If no matches found, show a message by setting empty array
+      setDestinations(filteredDestinations);
     } finally {
       setIsSearching(false);
     }
