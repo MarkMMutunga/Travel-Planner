@@ -18,7 +18,7 @@ const DestinationCard = ({ destination, onClick }) => {
       className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl dark:hover:shadow-2xl transform hover:-translate-y-2 transition duration-300 cursor-pointer overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-green-200 dark:hover:border-green-400"
     >
       {/* Real destination images */}
-      <div className="h-48 relative overflow-hidden">
+      <div className="h-40 sm:h-48 relative overflow-hidden">
         {destination.image ? (
           <img
             src={destination.image}
@@ -38,18 +38,18 @@ const DestinationCard = ({ destination, onClick }) => {
           </div>
         </div>
         <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
-        <div className="absolute bottom-4 left-4 text-white">
-          <h3 className="text-xl font-bold">{destination.name}</h3>
-          <p className="text-green-100">{destination.address?.countryName}</p>
+        <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 text-white">
+          <h3 className="text-lg sm:text-xl font-bold">{destination.name}</h3>
+          <p className="text-green-100 text-sm">{destination.address?.countryName}</p>
         </div>
-        <div className="absolute top-4 right-4">
+        <div className="absolute top-3 sm:top-4 right-3 sm:right-4">
           <span className="px-3 py-1 bg-green-600/90 text-white text-xs font-medium rounded-full backdrop-blur-sm">
             {destination.subType === 'LANDMARK' ? 'Landmark' : 'City'}
           </span>
         </div>
       </div>
       
-      <div className="p-6">
+      <div className="p-4 sm:p-6">
         {destination.description && (
           <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2 transition-colors duration-300">
             {destination.description}

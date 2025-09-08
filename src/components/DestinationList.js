@@ -36,16 +36,16 @@ const DestinationList = ({ destinations, onDestinationSelect, isLoading }) => {
   }
 
   return (
-    <div className="px-4 py-8">
+    <div className="px-4 py-8 sm:px-6 lg:px-8">
       <div className="max-w-6xl mx-auto">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 transition-colors duration-300">
+        <div className="mb-6 sm:mb-8">
+          <h2 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white mb-2 transition-colors duration-300">
             Found {destinations.length} destination{destinations.length !== 1 ? 's' : ''}
           </h2>
-          <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Click on any destination to see more details</p>
+          <p className="text-sm sm:text-base text-gray-600 dark:text-gray-300 transition-colors duration-300">Click on any destination to see more details</p>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
           {destinations.map((destination, index) => (
             <DestinationCard
               key={destination.id || index}

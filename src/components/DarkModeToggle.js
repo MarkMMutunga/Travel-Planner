@@ -20,23 +20,24 @@ export default function DarkModeToggle() {
     <button
       onClick={toggleDarkMode}
       className={`
-        relative inline-flex items-center w-16 h-8 rounded-full transition-all duration-300 ease-in-out
+        relative inline-flex items-center w-14 h-7 sm:w-16 sm:h-8 rounded-full transition-all duration-300 ease-in-out
         ${isDarkMode 
           ? 'bg-gradient-to-r from-indigo-600 to-purple-600 shadow-lg shadow-indigo-500/30' 
           : 'bg-gradient-to-r from-yellow-400 to-orange-500 shadow-lg shadow-yellow-500/30'
         }
         hover:scale-105 focus:outline-none focus:ring-4 focus:ring-opacity-50
         ${isDarkMode ? 'focus:ring-indigo-300' : 'focus:ring-yellow-300'}
+        touch-manipulation
       `}
       aria-label={`Switch to ${isDarkMode ? 'light' : 'dark'} mode`}
     >
       {/* Toggle Circle */}
       <div
         className={`
-          absolute top-1 left-1 w-6 h-6 bg-white rounded-full shadow-md
+          absolute top-0.5 left-0.5 sm:top-1 sm:left-1 w-6 h-6 sm:w-6 sm:h-6 bg-white rounded-full shadow-md
           transform transition-all duration-300 ease-in-out
           flex items-center justify-center
-          ${isDarkMode ? 'translate-x-8' : 'translate-x-0'}
+          ${isDarkMode ? 'translate-x-7 sm:translate-x-8' : 'translate-x-0'}
         `}
       >
         {/* Sun Icon (Light Mode) */}

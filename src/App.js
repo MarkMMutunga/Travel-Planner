@@ -198,22 +198,22 @@ function AppContent() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
       {/* Dark Mode Toggle - Fixed Position */}
-      <div className="fixed top-4 right-4 z-50">
+      <div className="fixed top-4 right-4 z-50 sm:top-6 sm:right-6">
         <DarkModeToggle />
       </div>
 
       {/* Hero Section */}
       <div className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-r from-green-600/10 to-emerald-600/10 dark:from-green-400/5 dark:to-emerald-400/5"></div>
-        <div className="relative px-4 py-16 sm:px-6 lg:px-8">
+        <div className="relative px-4 py-12 sm:py-16 lg:py-20 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl transition-colors duration-300">
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold tracking-tight text-gray-900 dark:text-white transition-colors duration-300">
               <span className="block">Plan Your Perfect</span>
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 animate-pulse">
                 Adventure
               </span>
             </h1>
-            <p className="mt-6 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-300 transition-colors duration-300">
+            <p className="mt-6 max-w-2xl mx-auto text-lg sm:text-xl text-gray-600 dark:text-gray-300 transition-colors duration-300 px-4 sm:px-0">
               Discover amazing destinations worldwide, find the best flights and hotels, and create unforgettable travel experiences.
             </p>
           </div>
@@ -243,7 +243,7 @@ function AppContent() {
               <p className="text-xl text-gray-600">Explore destinations worldwide, from bustling cities to hidden gems</p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
               <FeatureCard
                 icon="🌍"
                 title="Global Destinations"
