@@ -18,8 +18,8 @@ const DestinationList = ({ destinations, onDestinationSelect, isLoading }) => {
     return (
       <div className="flex justify-center items-center py-12">
         <div className="text-center">
-          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Searching for amazing destinations...</p>
+          <div className="w-16 h-16 border-4 border-green-500 dark:border-green-400 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Searching for amazing destinations...</p>
         </div>
       </div>
     );
@@ -29,8 +29,8 @@ const DestinationList = ({ destinations, onDestinationSelect, isLoading }) => {
     return (
       <div className="text-center py-12">
         <div className="text-6xl mb-4">🗺️</div>
-        <h3 className="text-xl font-semibold text-gray-900 mb-2">No destinations found</h3>
-        <p className="text-gray-600">Try searching for a different city or country</p>
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 transition-colors duration-300">No destinations found</h3>
+        <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Try searching for a different city or country</p>
       </div>
     );
   }
@@ -39,10 +39,10 @@ const DestinationList = ({ destinations, onDestinationSelect, isLoading }) => {
     <div className="px-4 py-8">
       <div className="max-w-6xl mx-auto">
         <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-2">
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 transition-colors duration-300">
             Found {destinations.length} destination{destinations.length !== 1 ? 's' : ''}
           </h2>
-          <p className="text-gray-600">Click on any destination to see more details</p>
+          <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">Click on any destination to see more details</p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

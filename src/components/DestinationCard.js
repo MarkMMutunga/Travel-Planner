@@ -15,7 +15,7 @@ const DestinationCard = ({ destination, onClick }) => {
   return (
     <div 
       onClick={() => onClick(destination)}
-      className="group bg-white rounded-xl shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition duration-300 cursor-pointer overflow-hidden border border-gray-100 hover:border-green-200"
+      className="group bg-white dark:bg-gray-800 rounded-xl shadow-lg hover:shadow-xl dark:hover:shadow-2xl transform hover:-translate-y-2 transition duration-300 cursor-pointer overflow-hidden border border-gray-100 dark:border-gray-700 hover:border-green-200 dark:hover:border-green-400"
     >
       {/* Real destination images */}
       <div className="h-48 relative overflow-hidden">
@@ -51,26 +51,26 @@ const DestinationCard = ({ destination, onClick }) => {
       
       <div className="p-6">
         {destination.description && (
-          <p className="text-gray-600 text-sm mb-4 line-clamp-2">
+          <p className="text-gray-600 dark:text-gray-300 text-sm mb-4 line-clamp-2 transition-colors duration-300">
             {destination.description}
           </p>
         )}
         
         <div className="flex items-center justify-between mb-3">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 dark:bg-green-800/30 text-green-800 dark:text-green-300 transition-colors duration-300">
             {destination.subType || 'City'}
           </span>
           <div className="flex items-center text-yellow-400">
-            ⭐ <span className="ml-1 text-gray-600 text-sm">4.8</span>
+            ⭐ <span className="ml-1 text-gray-600 dark:text-gray-400 text-sm transition-colors duration-300">4.8</span>
           </div>
         </div>
         
         <div className="flex items-center justify-between">
-          <span className="text-sm text-gray-500 flex items-center">
-            <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse mr-2"></div>
+          <span className="text-sm text-gray-500 dark:text-gray-400 flex items-center transition-colors duration-300">
+            <div className="w-2 h-2 bg-green-500 dark:bg-green-400 rounded-full animate-pulse mr-2"></div>
             Explore destination
           </span>
-          <div className="text-green-600 group-hover:text-green-700 transition duration-200">
+          <div className="text-green-600 dark:text-green-400 group-hover:text-green-700 dark:group-hover:text-green-300 transition duration-200">
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>

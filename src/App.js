@@ -15,9 +15,19 @@ import { useState } from 'react';
 import SearchBar from './components/SearchBar';
 import DestinationList from './components/DestinationList';
 import DestinationDetails from './components/DestinationDetails';
+import DarkModeToggle from './components/DarkModeToggle';
+import { DarkModeProvider } from './context/DarkModeContext';
 import amadeusAPI from './services/amadeusAPI';
 
 export default function App() {
+  return (
+    <DarkModeProvider>
+      <AppContent />
+    </DarkModeProvider>
+  );
+}
+
+function AppContent() {
   const [destinations, setDestinations] = useState([]);
   const [isSearching, setIsSearching] = useState(false);
   const [selectedDestination, setSelectedDestination] = useState(null);
@@ -186,19 +196,24 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 transition-colors duration-300">
+      {/* Dark Mode Toggle - Fixed Position */}
+      <div className="fixed top-4 right-4 z-50">
+        <DarkModeToggle />
+      </div>
+
       {/* Hero Section */}
       <div className="relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-r from-green-600/10 to-emerald-600/10"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-green-600/10 to-emerald-600/10 dark:from-green-400/5 dark:to-emerald-400/5"></div>
         <div className="relative px-4 py-16 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 sm:text-5xl md:text-6xl">
+            <h1 className="text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl md:text-6xl transition-colors duration-300">
               <span className="block">Plan Your Perfect</span>
-              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600 animate-pulse">
+              <span className="block text-transparent bg-clip-text bg-gradient-to-r from-green-600 to-emerald-600 dark:from-green-400 dark:to-emerald-400 animate-pulse">
                 Adventure
               </span>
             </h1>
-            <p className="mt-6 max-w-2xl mx-auto text-xl text-gray-600">
+            <p className="mt-6 max-w-2xl mx-auto text-xl text-gray-600 dark:text-gray-300 transition-colors duration-300">
               Discover amazing destinations worldwide, find the best flights and hotels, and create unforgettable travel experiences.
             </p>
           </div>
@@ -254,10 +269,10 @@ export default function App() {
 
 function FeatureCard({ icon, title, description }) {
   return (
-    <div className="group bg-white rounded-xl p-6 shadow-lg hover:shadow-xl transform hover:-translate-y-2 transition duration-300 border border-gray-100">
+    <div className="group bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg hover:shadow-xl dark:hover:shadow-2xl transform hover:-translate-y-2 transition duration-300 border border-gray-100 dark:border-gray-700">
       <div className="text-4xl mb-4 group-hover:scale-110 transition duration-300">{icon}</div>
-      <h3 className="text-xl font-semibold text-gray-900 mb-2">{title}</h3>
-      <p className="text-gray-600">{description}</p>
+      <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 transition-colors duration-300">{title}</h3>
+      <p className="text-gray-600 dark:text-gray-300 transition-colors duration-300">{description}</p>
     </div>
   );
 }
