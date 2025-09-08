@@ -44,7 +44,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'NBO',
           address: { countryName: 'Kenya', stateCode: 'NAI' },
-          image: 'https://images.unsplash.com/photo-1605128928677-7b2f1c4b8c8d?w=800&h=500&fit=crop&q=80',
+          image: 'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=800&h=500&fit=crop&q=80',
           description: 'The Green City in the Sun, gateway to African safari adventures'
         },
         {
@@ -116,7 +116,7 @@ export default function App() {
           subType: 'CITY',
           iataCode: 'MBA',
           address: { countryName: 'Kenya', stateCode: 'MBA' },
-          image: 'https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=800&h=500&fit=crop&q=80',
+          image: 'https://images.unsplash.com/photo-1544551763-46a013bb70d5?w=800&h=500&fit=crop&q=80',
           description: 'Coastal paradise with beautiful beaches and Swahili culture'
         },
         {
